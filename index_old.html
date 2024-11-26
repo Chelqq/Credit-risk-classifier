@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Crédito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .feature-container {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 80%;
+        }
+
+        select {
+            width: 80%;
+            padding: 5px;
+        }
+
+        span {
+            font-weight: bold;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simulador de Crédito</h1>
+    <p>Ajusta las características y observa cómo cambian los valores.</p>
+
+    <!-- Age -->
+    <div class="feature-container">
+        <label for="age">Age (años):</label>
+        <input type="range" id="age" min="18" max="80" step="1" value="30">
+        <span id="ageValue">30</span>
+    </div>
+
+    <!-- Sex -->
+    <div class="feature-container">
+        <label for="sex">Sex:</label>
+        <select id="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+
+    <!-- Job -->
+    <div class="feature-container">
+        <label for="job">Job:</label>
+        <select id="job">
+            <option value="0">0 - Unskilled and Non-resident</option>
+            <option value="1">1 - Unskilled and Resident</option>
+            <option value="2">2 - Skilled</option>
+            <option value="3">3 - Highly Skilled</option>
+        </select>
+    </div>
+
+    <!-- Housing -->
+    <div class="feature-container">
+        <label for="housing">Housing:</label>
+        <select id="housing">
+            <option value="own">Own</option>
+            <option value="rent">Rent</option>
+            <option value="free">Free</option>
+        </select>
+    </div>
+
+    <!-- Saving accounts -->
+    <div class="feature-container">
+        <label for="savingAccounts">Saving Accounts:</label>
+        <select id="savingAccounts">
+            <option value="little">Little</option>
+            <option value="moderate">Moderate</option>
+            <option value="quite rich">Quite Rich</option>
+            <option value="rich">Rich</option>
+        </select>
+    </div>
+
+    <!-- Checking account -->
+    <div class="feature-container">
+        <label for="checkingAccount">Checking Account (DM):</label>
+        <input type="range" id="checkingAccount" min="0" max="10000" step="100" value="5000">
+        <span id="checkingAccountValue">5000</span>
+    </div>
+
+    <!-- Credit amount -->
+    <div class="feature-container">
+        <label for="creditAmount">Credit Amount (DM):</label>
+        <input type="range" id="creditAmount" min="0" max="100000" step="500" value="20000">
+        <span id="creditAmountValue">20000</span>
+    </div>
+
+    <!-- Duration -->
+    <div class="feature-container">
+        <label for="duration">Duration (Meses):</label>
+        <input type="range" id="duration" min="6" max="120" step="1" value="12">
+        <span id="durationValue">12</span>
+    </div>
+
+    <!-- Purpose -->
+    <div class="feature-container">
+        <label for="purpose">Purpose:</label>
+        <select id="purpose">
+            <option value="car">Car</option>
+            <option value="furniture/equipment">Furniture/Equipment</option>
+            <option value="radio/TV">Radio/TV</option>
+            <option value="domestic appliances">Domestic Appliances</option>
+            <option value="repairs">Repairs</option>
+            <option value="education">Education</option>
+            <option value="business">Business</option>
+            <option value="vacation/others">Vacation/Others</option>
+        </select>
+    </div>
+
+    <h2>Resumen de Selecciones</h2>
+    <p><strong>Age:</strong> <span id="summaryAge">30</span></p>
+    <p><strong>Sex:</strong> <span id="summarySex">Male</span></p>
+    <p><strong>Job:</strong> <span id="summaryJob">0 - Unskilled and Non-resident</span></p>
+    <p><strong>Housing:</strong> <span id="summaryHousing">Own</span></p>
+    <p><strong>Saving Accounts:</strong> <span id="summarySavingAccounts">Little</span></p>
+    <p><strong>Checking Account:</strong> <span id="summaryCheckingAccount">5000</span></p>
+    <p><strong>Credit Amount:</strong> <span id="summaryCreditAmount">20000</span></p>
+    <p><strong>Duration:</strong> <span id="summaryDuration">12</span></p>
+    <p><strong>Purpose:</strong> <span id="summaryPurpose">Car</span></p>
+
+    <script>
+        // Actualizar los valores de los sliders
+        function updateValues() {
+            document.getElementById('ageValue').textContent = document.getElementById('age').value;
+            document.getElementById('checkingAccountValue').textContent = document.getElementById('checkingAccount').value;
+            document.getElementById('creditAmountValue').textContent = document.getElementById('creditAmount').value;
+            document.getElementById('durationValue').textContent = document.getElementById('duration').value;
+
+            // Actualizar el resumen
+            document.getElementById('summaryAge').textContent = document.getElementById('age').value;
+            document.getElementById('summarySex').textContent = document.getElementById('sex').value;
+            document.getElementById('summaryJob').textContent = document.getElementById('job').selectedOptions[0].text;
+            document.getElementById('summaryHousing').textContent = document.getElementById('housing').value;
+            document.getElementById('summarySavingAccounts').textContent = document.getElementById('savingAccounts').value;
+            document.getElementById('summaryCheckingAccount').textContent = document.getElementById('checkingAccount').value;
+            document.getElementById('summaryCreditAmount').textContent = document.getElementById('creditAmount').value;
+            document.getElementById('summaryDuration').textContent = document.getElementById('duration').value;
+            document.getElementById('summaryPurpose').textContent = document.getElementById('purpose').value;
+        }
+
+        // Agregar eventos para sliders y selects
+        document.getElementById('age').addEventListener('input', updateValues);
+        document.getElementById('checkingAccount').addEventListener('input', updateValues);
+        document.getElementById('creditAmount').addEventListener('input', updateValues);
+        document.getElementById('duration').addEventListener('input', updateValues);
+
+        document.getElementById('sex').addEventListener('change', updateValues);
+        document.getElementById('job').addEventListener('change', updateValues);
+        document.getElementById('housing').addEventListener('change', updateValues);
+        document.getElementById('savingAccounts').addEventListener('change', updateValues);
+        document.getElementById('purpose').addEventListener('change', updateValues);
+
+        // Inicializar valores
+        updateValues();
+        
+        // Función para calcular la predicción
+function calculatePrediction() {
+    const age = parseInt(document.getElementById('age').value);
+    const job = parseInt(document.getElementById('job').value);
+    const housing = document.getElementById('housing').value;
+    const savings = document.getElementById('savingAccounts').value;
+    const checking = parseInt(document.getElementById('checkingAccount').value);
+    const creditAmount = parseInt(document.getElementById('creditAmount').value);
+    const duration = parseInt(document.getElementById('duration').value);
+    const purpose = document.getElementById('purpose').value;
+
+    // Lógica básica para calcular la predicción
+    let prediction = "Rechazo Probable";
+
+    if (job >= 2 && housing === "own" && savings === "rich" && checking > 5000 && creditAmount < 50000 && duration < 36) {
+        prediction = "Aprobación Alta";
+    } else if (job >= 1 && checking > 2000 && creditAmount < 80000 && duration < 60) {
+        prediction = "Aprobación Moderada";
+    }
+
+    // Mostrar la predicción
+    document.getElementById('prediction').textContent = prediction;
+}
+
+// Llamar a la función calculatePrediction cada vez que cambien los valores
+function updateValues() {
+    // Actualización de sliders y resumen
+    document.getElementById('ageValue').textContent = document.getElementById('age').value;
+    document.getElementById('checkingAccountValue').textContent = document.getElementById('checkingAccount').value;
+    document.getElementById('creditAmountValue').textContent = document.getElementById('creditAmount').value;
+    document.getElementById('durationValue').textContent = document.getElementById('duration').value;
+
+    document.getElementById('summaryAge').textContent = document.getElementById('age').value;
+    document.getElementById('summarySex').textContent = document.getElementById('sex').value;
+    document.getElementById('summaryJob').textContent = document.getElementById('job').selectedOptions[0].text;
+    document.getElementById('summaryHousing').textContent = document.getElementById('housing').value;
+    document.getElementById('summarySavingAccounts').textContent = document.getElementById('savingAccounts').value;
+    document.getElementById('summaryCheckingAccount').textContent = document.getElementById('checkingAccount').value;
+    document.getElementById('summaryCreditAmount').textContent = document.getElementById('creditAmount').value;
+    document.getElementById('summaryDuration').textContent = document.getElementById('duration').value;
+    document.getElementById('summaryPurpose').textContent = document.getElementById('purpose').value;
+
+    // Actualizar la predicción
+    calculatePrediction();
+}
+
+// Inicializar valores al cargar la página
+updateValues();
+
+
+
+    </script>
+
+<h2>Predicción: <span id="prediction">Rechazo Probable</span></h2>
+
+</body>
+</html>
