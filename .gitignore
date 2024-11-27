@@ -139,7 +139,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
-
+*.xlsx
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -153,6 +153,7 @@ dmypy.json
 
 *.csv
 *.pkl
+label_encodings.txt
 
 # Cython debug symbols
 cython_debug/
