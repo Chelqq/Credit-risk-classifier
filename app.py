@@ -33,12 +33,5 @@ def predict():
     # Retornar la predicción en formato JSON
     return jsonify({'prediction': result})
 
-
-    # Asegurarse de que la predicción sea un tipo serializable en JSON
-    prediction = result  # Asignamos el mensaje en lugar de la predicción booleana
-
-    # Retornar la predicción
-    return jsonify({'prediction': prediction})
-
 if __name__ == '__main__':
     app.run(debug=True)
