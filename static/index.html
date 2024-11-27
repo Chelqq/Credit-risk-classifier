@@ -1,56 +1,100 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Predicción de Modelo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Predicción de Crédito</title>
+    <!-- Enlazando el archivo CSS -->
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
-    <h1>Realizar una predicción</h1>
+    <h1>Formulario de Predicción de Crédito</h1>
     
-    <!-- Campos para las 10 características -->
-    <label for="feature1">Características:</label><br>
-    <input type="number" id="feature1" placeholder="Característica 1"><br>
-    <input type="number" id="feature2" placeholder="Característica 2"><br>
-    <input type="number" id="feature3" placeholder="Característica 3"><br>
-    <input type="number" id="feature4" placeholder="Característica 4"><br>
-    <input type="number" id="feature5" placeholder="Característica 5"><br>
-    <input type="number" id="feature6" placeholder="Característica 6"><br>
-    <input type="number" id="feature7" placeholder="Característica 7"><br>
-    <input type="number" id="feature8" placeholder="Característica 8"><br>
-    <input type="number" id="feature9" placeholder="Característica 9"><br>
-    <input type="number" id="feature10" placeholder="Característica 10"><br>
+    <form id="predictForm">
+        <!-- Edad -->
+        <label for="age">Edad (19 - 75):</label>
+        <input type="number" id="age" name="age" min="19" max="75" required>
+        <div class="feature-info">Debe ser un número entre 19 y 75.</div>
 
-    <button onclick="predict()">Predecir</button>
+        <!-- Sexo -->
+        <label for="sex">Sexo:</label>
+        <select id="sex" name="sex" required>
+            <option value="female">Femenino (0)</option>
+            <option value="male">Masculino (1)</option>
+        </select>
+        <div class="feature-info">0 = Femenino, 1 = Masculino.</div>
 
-    <p id="result"></p>
+        <!-- Trabajo -->
+        <label for="job">Trabajo:</label>
+        <select id="job" name="job" required>
+            <option value="0">No cualificado y no residente</option>
+            <option value="1">No cualificado y residente</option>
+            <option value="2">Cualificado</option>
+            <option value="3">Altamente cualificado</option>
+        </select>
+        <div class="feature-info">0 = No cualificado y no residente, 1 = No cualificado y residente, 2 = Cualificado, 3 = Altamente cualificado.</div>
 
-    <script>
-function predict() {
-    // Recoger los 10 valores de las características
-    const features = [
-        parseFloat(document.getElementById('feature1').value),
-        parseFloat(document.getElementById('feature2').value),
-        parseFloat(document.getElementById('feature3').value),
-        parseFloat(document.getElementById('feature4').value),
-        parseFloat(document.getElementById('feature5').value),
-        parseFloat(document.getElementById('feature6').value),
-        parseFloat(document.getElementById('feature7').value),
-        parseFloat(document.getElementById('feature8').value),
-        parseFloat(document.getElementById('feature9').value),
-        parseFloat(document.getElementById('feature10').value)
-    ];
+        <!-- Vivienda -->
+        <label for="housing">Vivienda:</label>
+        <select id="housing" name="housing" required>
+            <option value="0">Libre</option>
+            <option value="1">Propia</option>
+            <option value="2">Alquiler</option>
+        </select>
+        <div class="feature-info">0 = Libre, 1 = Propia, 2 = Alquiler.</div>
 
-    const data = { features: features };
+        <!-- Cuentas de ahorro -->
+        <label for="saving_accounts">Cuentas de ahorro:</label>
+        <select id="saving_accounts" name="saving_accounts" required>
+            <option value="0">Poca</option>
+            <option value="1">Moderada</option>
+            <option value="2">Bastante rica</option>
+            <option value="3">Rica</option>
+            <option value="4">Desconocida</option>
+        </select>
+        <div class="feature-info">0 = Poca, 1 = Moderada, 2 = Bastante rica, 3 = Rica, 4 = Desconocida.</div>
 
-    fetch('http://127.0.0.1:5000/predict', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('result').innerText = 'Predicción: ' + data.prediction;
-    })
-    .catch(error => console.error('Error:', error));
-}
-    </script>
+        <!-- Cuenta corriente -->
+        <label for="checking_account">Cuenta corriente:</label>
+        <select id="checking_account" name="checking_account" required>
+            <option value="0">Poca</option>
+            <option value="1">Moderada</option>
+            <option value="2">Rica</option>
+            <option value="3">Desconocida</option>
+        </select>
+        <div class="feature-info">0 = Poca, 1 = Moderada, 2 = Rica, 3 = Desconocida.</div>
+
+        <!-- Duración -->
+        <label for="duration">Duración (4 - 72 meses):</label>
+        <input type="number" id="duration" name="duration" min="4" max="72" required>
+        <div class="feature-info">Debe ser un número entre 4 y 72.</div>
+
+        <!-- Propósito -->
+        <label for="purpose">Propósito:</label>
+        <select id="purpose" name="purpose" required>
+            <option value="0">Negocios</option>
+            <option value="1">Coche</option>
+            <option value="2">Electrodomésticos</option>
+            <option value="3">Educación</option>
+            <option value="4">Muebles/Equipos</option>
+            <option value="5">Radio/TV</option>
+            <option value="6">Reparaciones</option>
+            <option value="7">Vacaciones/Otros</option>
+        </select>
+        <div class="feature-info">0 = Negocios, 1 = Coche, 2 = Electrodomésticos, 3 = Educación, 4 = Muebles/Equipos, 5 = Radio/TV, 6 = Reparaciones, 7 = Vacaciones/Otros.</div>
+
+        <button type="submit">Hacer Predicción</button>
+    </form>
+
+    <h2>Resultado de la Predicción:</h2>
+    <p id="predictionResult"></p>
+
+    
+    
+    <!-- Mostrar la predicción -->
+    <p id="result"></p> <!-- Aquí se mostrará el resultado de la predicción -->
+
+    <!-- Enlazando el archivo JavaScript -->
+    <script src="../static/script.js"></script>
 </body>
 </html>

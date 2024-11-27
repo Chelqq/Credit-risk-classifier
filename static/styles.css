@@ -1,0 +1,189 @@
+/* Estilo global */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f6; /* Fondo gris claro */
+    color: #666370; /* Texto oscuro (Cinereous) */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #1c1f33; /* Space cadet */
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #1c1f33; /* Space cadet */
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1.1rem;
+    color: #1c1f33; /* Space cadet */
+    font-weight: 600;
+}
+
+/* Estilo de inputs, select, y textareas */
+input[type="number"],
+select,
+input[type="radio"],
+input[type="checkbox"] {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #9b7874; /* Cinereous */
+    font-size: 1rem;
+    color: #333;
+    background-color: #f4f7f6;
+    margin-top: 5px;
+    transition: border-color 0.3s ease;
+}
+
+/* Efecto de foco en los inputs */
+input[type="number"]:focus,
+select:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+    border-color: #ff220c; /* Scarlet */
+    outline: none;
+}
+
+/* Estilo de inputs con error */
+input[type="number"].error,
+select.error {
+    border-color: #ff220c; /* Scarlet */
+    background-color: #f8d7da; /* Fondo rojo claro */
+}
+
+input[type="radio"].error,
+input[type="checkbox"].error {
+    border-color: #ff220c; /* Scarlet */
+}
+
+/* Estilo de los controles personalizados (Checkbox y Radio) */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #ff220c; /* Scarlet */
+    border-color: #ff220c; /* Scarlet */
+}
+
+.custom-control-label {
+    position: relative;
+    padding-left: 40px; /* Espacio para los iconos */
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.custom-control-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 2px solid #9b7874; /* Cinereous */
+    box-shadow: none;
+}
+
+/* Estilo para los botones de radio */
+.custom-radio .custom-control-label::before {
+    border-radius: 50%;
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23ffffff'/%3e%3c/svg%3e");
+}
+
+/* Switches */
+.custom-switch {
+    padding-left: 3.9375rem;
+}
+
+.custom-switch .custom-control-label::before {
+    left: -3.9375rem;
+    width: 2.1875rem;
+    pointer-events: all;
+    border-radius: 0.625rem;
+}
+
+.custom-switch .custom-control-label::after {
+    top: calc(0.03125rem + 2px);
+    left: calc(-3.9375rem + 2px);
+    width: calc(1.25rem - 4px);
+    height: calc(1.25rem - 4px);
+    background-color: #9b7874; /* Cinereous */
+    border-radius: 0.625rem;
+    transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    background-color: transparent;
+    transform: translateX(0.9375rem);
+}
+
+.custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: rgba(255, 34, 12, 0.5); /* Scarlet con opacidad */
+}
+
+/* Botones */
+button {
+    padding: 14px 24px;
+    border: none;
+    background-color: #ff220c; /* Scarlet */
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: #d33e43; /* Poppy */
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #b3282e; /* Scarlet oscuro */
+}
+
+/* Mensajes de predicción */
+.prediction-result {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.prediction-result.high-risk {
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #721c24; /* Texto rojo oscuro */
+}
+
+.prediction-result.low-risk {
+    background-color: #d4edda; /* Fondo verde claro */
+    color: #155724; /* Texto verde oscuro */
+}
