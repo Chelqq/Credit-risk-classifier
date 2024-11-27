@@ -1,30 +1,44 @@
-from flask import Flask, request, jsonify
-import joblib
+from flask import Flask, request, jsonify, send_from_directory
+import pickle
 import numpy as np
+import os
 
+# Crear la aplicación Flask
 app = Flask(__name__)
 
-# Cargar el modelo previamente entrenado
-model = joblib.load('random_forest_model.pkl')
+# Cargar el modelo desde el archivo pickle
+with open('random_forest_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
+# Ruta para servir el archivo HTML de la página web
+@app.route('/')
+def serve_home():
+    return send_from_directory(os.getcwd(), 'static/index.html')
+
+# Ruta para hacer predicciones
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = request.get_json(force=True)
+    data = request.get_json()  # Los datos deben enviarse en formato JSON
+    features = np.array(data['features']).reshape(1, -1)  # Ajustar la forma de los datos
 
-    # Asegúrate de que se reciban 10 características
-    if len(data['features']) != 10:
-        return jsonify({'error': 'Se necesitan exactamente 10 características.'}), 400
-
-    # Convertir las características en un array y hacer la predicción
-    features = np.array(data['features']).reshape(1, -1)
+    # Hacer la predicción
     prediction = model.predict(features)
 
-    return jsonify({'prediction': int(prediction[0])})
+    # Determinar el mensaje basado en la predicción
+    if prediction[0] == 1:  # Si la predicción es 1, es "alto riesgo"
+        result = "Crédito de alto riesgo"
+    else:  # Si la predicción es 0, es "bajo riesgo"
+        result = "Crédito de bajo riesgo"
 
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
+    # Retornar la predicción en formato JSON
+    return jsonify({'prediction': result})
 
+
+    # Asegurarse de que la predicción sea un tipo serializable en JSON
+    prediction = result  # Asignamos el mensaje en lugar de la predicción booleana
+
+    # Retornar la predicción
+    return jsonify({'prediction': prediction})
 
 if __name__ == '__main__':
     app.run(debug=True)
